@@ -1,0 +1,243 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+.knitr .inline {
+  background-color: #f7f7f7;
+  border:solid 1px #B0B0B0;
+}
+.error {
+	font-weight: bold;
+	color: #FF0000;
+}
+.warning {
+	font-weight: bold;
+}
+.message {
+	font-style: italic;
+}
+.source, .output, .warning, .error, .message {
+	padding: 0 1em;
+  border:solid 1px #F7F7F7;
+}
+.source {
+  background-color: #f5f5f5;
+}
+.rimage .left {
+  text-align: left;
+}
+.rimage .right {
+  text-align: right;
+}
+.rimage .center {
+  text-align: center;
+}
+.hl.num {
+  color: #AF0F91;
+}
+.hl.str {
+  color: #317ECC;
+}
+.hl.com {
+  color: #AD95AF;
+  font-style: italic;
+}
+.hl.opt {
+  color: #000000;
+}
+.hl.std {
+  color: #585858;
+}
+.hl.kwa {
+  color: #295F94;
+  font-weight: bold;
+}
+.hl.kwb {
+  color: #B05A65;
+}
+.hl.kwc {
+  color: #55aa55;
+}
+.hl.kwd {
+  color: #BC5A65;
+  font-weight: bold;
+}
+</style>
+  <script src="https://yihui.name/media/js/center-images.js"></script>
+  <title></title>
+</head>
+<body>
+
+  <p>This report is automatically generated with the R
+    package <a href="https://yihui.name/knitr/"><strong>knitr</strong></a>
+    (version <code class="knitr inline">1.20</code>)
+    .</p>
+
+<div class="chunk" id="auto-report"><div class="rcode"><div class="source"><pre class="knitr r"><span class="hl com">### uiStub</span>
+<span class="hl com">### v1.3 - Tom Weishaar - Sep 2017</span>
+
+<span class="hl com">### v1.1 fixes a security issue</span>
+<span class="hl com">###    for details, see: https://groups.google.com/forum/?utm_source=digest&amp;utm_medium=email#!topic/shiny-discuss/zxoLK1kKTCw)</span>
+<span class="hl com">### v1.2 adds some tagList() functions that aren't strictly required here, but make it</span>
+<span class="hl com">###    much easier to expand this code.</span>
+<span class="hl com">### v1.3 added more informative console messages.</span>
+
+<span class="hl com">### Simple demo program that &quot;moves&quot; the ui into the server, thereby allowing the use of</span>
+<span class="hl com">###    the URL &quot;search&quot; protocol to create multi-page web sites. The advantage is that</span>
+<span class="hl com">###    each page can have its own file (to keep things organized) and only one file is</span>
+<span class="hl com">###    loaded into Shiny Server at a time, limiting memory usage.</span>
+
+<span class="hl com">### Note, the URL &quot;path&quot; protocol currently doesn't work, because Shiny Server currently</span>
+<span class="hl com">###    returns a &quot;not found&quot; error rather than passing the path to the session.</span>
+
+<span class="hl kwd">library</span><span class="hl std">(shiny)</span>
+
+<span class="hl com"># put a message in console or server log; note this happens only when the app is started!</span>
+<span class="hl kwd">cat</span><span class="hl std">(</span><span class="hl str">&quot;uiStub application started...\n&quot;</span><span class="hl std">)</span>
+</pre></div>
+<div class="output"><pre class="knitr r">## uiStub application started...
+</pre></div>
+<div class="source"><pre class="knitr r"><span class="hl std">ui</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">uiOutput</span><span class="hl std">(</span><span class="hl str">&quot;uiStub&quot;</span><span class="hl std">)</span>                                <span class="hl com"># single-output stub ui</span>
+<span class="hl std">server</span> <span class="hl kwb">&lt;-</span> <span class="hl kwa">function</span><span class="hl std">(</span><span class="hl kwc">input</span><span class="hl std">,</span> <span class="hl kwc">output</span><span class="hl std">,</span> <span class="hl kwc">session</span><span class="hl std">) {</span>
+   <span class="hl kwd">cat</span><span class="hl std">(</span><span class="hl str">&quot;Session started.\n&quot;</span><span class="hl std">)</span>                               <span class="hl com"># this prints when a session starts</span>
+   <span class="hl kwd">onSessionEnded</span><span class="hl std">(</span><span class="hl kwa">function</span><span class="hl std">() {</span><span class="hl kwd">cat</span><span class="hl std">(</span><span class="hl str">&quot;Session ended.\n\n&quot;</span><span class="hl std">)})</span>  <span class="hl com"># this prints when a session ends</span>
+
+   <span class="hl com"># build menu; same on all pages</span>
+   <span class="hl std">output</span><span class="hl opt">$</span><span class="hl std">uiStub</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">renderUI</span><span class="hl std">(</span><span class="hl kwd">tagList</span><span class="hl std">(</span>             <span class="hl com"># a single-output stub ui basically lets you</span>
+      <span class="hl kwd">fluidPage</span><span class="hl std">(</span><span class="hl kwc">theme</span> <span class="hl std">=</span> <span class="hl str">&quot;style.css&quot;</span><span class="hl std">,</span>                           <span class="hl com">#     move the ui into the server function</span>
+         <span class="hl kwd">fluidRow</span><span class="hl std">(</span>
+            <span class="hl kwd">column</span><span class="hl std">(</span><span class="hl num">12</span><span class="hl std">,</span>
+               <span class="hl kwd">HTML</span><span class="hl std">(</span>
+                 <span class="hl str">&quot;&lt;br&gt;&quot;</span><span class="hl std">,</span>
+                    <span class="hl str">'&lt;h3 style = &quot;font-size:18px ; color: #ffffff; background-color: 	#ffe6e6;
+                                  padding: 4px;&quot;&gt;&lt;a href=&quot;?home&quot;&gt;Home&lt;/a&gt;&lt;/h3&gt; '</span><span class="hl std">,</span>
+
+                    <span class="hl str">'&lt;h5&gt;&lt;a href=&quot;?1_layout&quot;&gt; 1_Creating Layout of Dashboard&lt;/a&gt;&lt;/h5&gt;'</span><span class="hl std">,</span>
+                    <span class="hl str">'&lt;h5&gt;&lt;a href=&quot;?2_chartsinputcontrol&quot;&gt; 2_Creating Charts and Inh5ut Controls&lt;/a&gt;&lt;/h5&gt;'</span><span class="hl std">,</span>
+                    <span class="hl str">&quot;&lt;h5&gt;&lt;a href='?3_enablingMenuItem'&gt;3_Enabling Menu Items for their resh5ective h5ages&lt;/a&gt;&lt;/h5&gt;&quot;</span><span class="hl std">,</span>
+                    <span class="hl str">&quot;&lt;h5&gt;&lt;a href='?4_notification'&gt;4_Creating Notification in Shiny&lt;/a&gt;&lt;/h5&gt;&quot;</span><span class="hl std">,</span>
+                    <span class="hl str">&quot;&lt;h5&gt;&lt;a href='?5_dynamicMessage'&gt;5_Creating Dynamic Messages&lt;/a&gt;&lt;/h5&gt;&quot;</span><span class="hl std">,</span>
+                    <span class="hl str">&quot;&lt;h5&gt;&lt;a href='?6_notificationMenu'&gt;6_Displaying Notification Menu&lt;/a&gt;&lt;/h5&gt;&quot;</span><span class="hl std">,</span>
+                    <span class="hl str">&quot;&lt;h5&gt;&lt;a href='?7_taskMenu'&gt;7_Creating Task Menu&lt;/a&gt;&lt;/h5&gt;&quot;</span><span class="hl std">,</span>
+                    <span class="hl str">&quot;&lt;h5&gt;&lt;a href='?8_highlightMenu'&gt;8_How to highlight new menu using badge&lt;/a&gt;&lt;/h5&gt;&quot;</span><span class="hl std">,</span>
+                    <span class="hl str">&quot;&lt;h5&gt;&lt;a href='?9_multiControl'&gt;9_How to Add Multiple Controls on Side Bar&lt;/a&gt;&lt;/h5&gt;&quot;</span><span class="hl std">,</span>
+                    <span class="hl str">&quot;&lt;h5&gt;&lt;a href='?10_newBox'&gt;10_Adding a nex box and putting controls in it&lt;/a&gt;&lt;/h5&gt;&quot;</span><span class="hl std">,</span>
+                    <span class="hl str">&quot;&lt;h5&gt;&lt;a href='?11_tab'&gt;11_Adding a nex box and putting controls in it&lt;/a&gt;&lt;/h5&gt;&quot;</span><span class="hl std">,</span>
+                    <span class="hl str">&quot;&lt;h5&gt;&lt;a href='?12_kpi'&gt;12_Creating KPIs or Info Boxes&lt;/a&gt;&lt;/h5&gt;&quot;</span><span class="hl std">,</span>
+                    <span class="hl str">&quot;&lt;h5&gt;&lt;a href='?13_valueBox'&gt;13_Creating Value Box&lt;/a&gt;&lt;/h5&gt;&quot;</span><span class="hl std">,</span>
+                    <span class="hl str">&quot;&lt;h5&gt;&lt;a href='?14_columnLayout'&gt;14_Creating Column Layout&lt;/a&gt;&lt;/h5&gt;&quot;</span><span class="hl std">,</span>
+                    <span class="hl str">&quot;&lt;h5&gt;&lt;a href='?15_titleColor'&gt;15_Change page title and skin color&lt;/a&gt;&lt;/h5&gt;&quot;</span><span class="hl std">,</span>
+                    <span class="hl str">&quot;&lt;h5&gt;&lt;a href='?16_reactiveText'&gt;16_Create reactive shiny Text Widget&lt;/a&gt;&lt;/h5&gt;&quot;</span><span class="hl std">,</span>
+                    <span class="hl str">&quot;&lt;h5&gt;&lt;a href='?17_reactiveRadio'&gt;17_Create reactive shiny Radio Widget&lt;/a&gt;&lt;/h5&gt;&quot;</span><span class="hl std">,</span>
+                    <span class="hl str">&quot;&lt;h5&gt;&lt;a href='?18_reactiveSlider'&gt;18_Create reactive Slidebar Widget&lt;/a&gt;&lt;/h5&gt;&quot;</span><span class="hl std">,</span>
+                    <span class="hl str">&quot;&lt;h5&gt;&lt;a href='?19_reactiveSelect'&gt;19_Create reactive Select Input Widget&lt;/a&gt;&lt;/h5&gt;&quot;</span><span class="hl std">,</span>
+                    <span class="hl str">&quot;&lt;h5&gt;&lt;a href='?20_tab'&gt;20_Create tabs&lt;/a&gt;&lt;/h5&gt;&quot;</span><span class="hl std">,</span>
+                    <span class="hl str">&quot;&lt;h5&gt;&lt;a href='?21_reactiveFunction'&gt;21_Create reactive Functions&lt;/a&gt;&lt;/h5&gt;&quot;</span><span class="hl std">,</span>
+                    <span class="hl str">&quot;&lt;h5&gt;&lt;a href='?22_videoImage'&gt;22_Add videos and images&lt;/a&gt;&lt;/h5&gt;&quot;</span><span class="hl std">,</span>
+                    <span class="hl str">&quot;&lt;h5&gt;&lt;a href='?23_downloadData'&gt;23_Download data and plot&lt;/a&gt;&lt;/h5&gt;&quot;</span><span class="hl std">,</span>
+                    <span class="hl str">&quot;&lt;h5&gt;&lt;a href='?24_uploadFile'&gt;24_Upload a file&lt;/a&gt;&lt;/h5&gt;&quot;</span><span class="hl std">,</span>
+                    <span class="hl str">&quot;&lt;h5&gt;&lt;a href='?25_reactiveSubmit'&gt;25_Hold reactivity using submit button&lt;/a&gt;&lt;/h5&gt;&quot;</span><span class="hl std">,</span>
+                    <span class="hl str">&quot;&lt;h5&gt;&lt;a href='?26_allInclusive'&gt;26_All Included&lt;/a&gt;&lt;/h5&gt;&quot;</span>
+
+  <span class="hl std">)</span>
+               <span class="hl std">)</span>
+            <span class="hl std">),</span>
+         <span class="hl kwd">uiOutput</span><span class="hl std">(</span><span class="hl str">&quot;pageStub&quot;</span><span class="hl std">)</span>                     <span class="hl com"># loaded server code should render the</span>
+      <span class="hl std">)</span>                                           <span class="hl com">#    rest of the page to this output$</span>
+   <span class="hl std">))</span>
+
+   <span class="hl com"># load server code for page specified in URL</span>
+   <span class="hl std">validFiles</span> <span class="hl kwb">=</span> <span class="hl kwd">c</span><span class="hl std">(</span><span class="hl str">&quot;home.R&quot;</span><span class="hl std">,</span>   <span class="hl com"># valid files must be hardcoded here</span>
+                  <span class="hl str">&quot;1_layout.R&quot;</span><span class="hl std">,</span>
+                  <span class="hl str">&quot;2_chartsinputcontrol.R&quot;</span><span class="hl std">,</span>
+                  <span class="hl str">&quot;3_enablingMenuItem.R&quot;</span><span class="hl std">,</span>
+                  <span class="hl str">&quot;4_notification.R&quot;</span><span class="hl std">,</span>
+                  <span class="hl str">&quot;5_dynamicMessage.R&quot;</span><span class="hl std">,</span>
+                  <span class="hl str">&quot;6_notificationMenu.R&quot;</span><span class="hl std">,</span>
+                  <span class="hl str">&quot;7_taskMenu.R&quot;</span><span class="hl std">,</span>
+                  <span class="hl str">&quot;8_highlightMenu.R&quot;</span><span class="hl std">,</span>
+                  <span class="hl str">&quot;9_multiControl.R&quot;</span><span class="hl std">,</span>
+                  <span class="hl str">&quot;10_newBox.R&quot;</span><span class="hl std">,</span>
+                  <span class="hl str">&quot;11_tab.R&quot;</span><span class="hl std">,</span>
+                  <span class="hl str">&quot;12_kpi.R&quot;</span><span class="hl std">,</span>
+                  <span class="hl str">&quot;13_valueBox.R&quot;</span><span class="hl std">,</span>
+                  <span class="hl str">&quot;14_columnLayout.R&quot;</span><span class="hl std">,</span>
+                  <span class="hl str">&quot;15_titleColor.R&quot;</span><span class="hl std">,</span>
+                  <span class="hl str">&quot;16_reactiveText.R&quot;</span><span class="hl std">,</span>
+                  <span class="hl str">&quot;17_reactiveRadio.R&quot;</span><span class="hl std">,</span>
+                  <span class="hl str">&quot;18_reactiveSlider.R&quot;</span><span class="hl std">,</span>
+                  <span class="hl str">&quot;19_reactiveSelect.R&quot;</span><span class="hl std">,</span>
+                  <span class="hl str">&quot;20_tab.R&quot;</span><span class="hl std">,</span>
+                  <span class="hl str">&quot;21_reactiveFunction.R&quot;</span><span class="hl std">,</span>
+                  <span class="hl str">&quot;22_videoImage.R&quot;</span><span class="hl std">,</span>
+                  <span class="hl str">&quot;23_downloadData.R&quot;</span><span class="hl std">,</span>
+                  <span class="hl str">&quot;24_uploadFile.R&quot;</span><span class="hl std">,</span>
+                  <span class="hl str">&quot;25_reactiveSubmit.R&quot;</span><span class="hl std">,</span>
+                  <span class="hl str">&quot;26_allInclusive.R&quot;</span><span class="hl std">)</span>                     <span class="hl com">#    for security (use all lower-case</span>
+                                                        <span class="hl com">#    names to prevent Unix case problems)</span>
+   <span class="hl std">fname</span> <span class="hl kwb">=</span> <span class="hl kwd">isolate</span><span class="hl std">(session</span><span class="hl opt">$</span><span class="hl std">clientData</span><span class="hl opt">$</span><span class="hl std">url_search)</span>       <span class="hl com"># isolate() deals with reactive context</span>
+   <span class="hl kwa">if</span><span class="hl std">(</span><span class="hl kwd">nchar</span><span class="hl std">(fname)</span><span class="hl opt">==</span><span class="hl num">0</span><span class="hl std">) { fname</span> <span class="hl kwb">=</span> <span class="hl str">&quot;?home&quot;</span> <span class="hl std">}</span>              <span class="hl com"># blank means home page</span>
+   <span class="hl std">fname</span> <span class="hl kwb">=</span> <span class="hl kwd">paste0</span><span class="hl std">(</span><span class="hl kwd">substr</span><span class="hl std">(fname,</span> <span class="hl num">2</span><span class="hl std">,</span> <span class="hl kwd">nchar</span><span class="hl std">(fname)),</span> <span class="hl str">&quot;.R&quot;</span><span class="hl std">)</span> <span class="hl com"># remove leading &quot;?&quot;, add &quot;.R&quot;</span>
+
+   <span class="hl kwd">cat</span><span class="hl std">(</span><span class="hl kwd">paste0</span><span class="hl std">(</span><span class="hl str">&quot;Session filename: &quot;</span><span class="hl std">, fname,</span> <span class="hl str">&quot;.\n&quot;</span><span class="hl std">))</span>      <span class="hl com"># print the URL for this session</span>
+
+   <span class="hl kwa">if</span><span class="hl std">(</span><span class="hl opt">!</span><span class="hl std">fname</span> <span class="hl opt">%in%</span> <span class="hl std">validFiles){</span>                          <span class="hl com"># is that one of our files?</span>
+      <span class="hl std">output</span><span class="hl opt">$</span><span class="hl std">pageStub</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">renderUI</span><span class="hl std">(</span><span class="hl kwd">tagList</span><span class="hl std">(</span>              <span class="hl com"># 404 if no file with that name</span>
+         <span class="hl kwd">fluidRow</span><span class="hl std">(</span>
+            <span class="hl kwd">column</span><span class="hl std">(</span><span class="hl num">5</span><span class="hl std">,</span>
+               <span class="hl kwd">HTML</span><span class="hl std">(</span><span class="hl str">&quot;&lt;h2&gt;404 Not Found Error:&lt;/h2&gt;&lt;p&gt;That URL doesn't exist. Use the&quot;</span><span class="hl std">,</span>
+                    <span class="hl str">&quot;menu above to navigate to the page you were looking for.&lt;/p&gt;&quot;</span><span class="hl std">)</span>
+            <span class="hl std">)</span>
+         <span class="hl std">)</span>
+      <span class="hl std">))</span>
+      <span class="hl kwd">return</span><span class="hl std">()</span>    <span class="hl com"># to prevent a &quot;file not found&quot; error on the next line after a 404 error</span>
+   <span class="hl std">}</span>
+   <span class="hl kwd">source</span><span class="hl std">(fname,</span> <span class="hl kwc">local</span><span class="hl std">=</span><span class="hl num">TRUE</span><span class="hl std">)</span>                            <span class="hl com"># load and run server code for this page</span>
+<span class="hl std">}</span>
+<span class="hl com"># Run the application</span>
+<span class="hl kwd">shinyApp</span><span class="hl std">(</span><span class="hl kwc">ui</span> <span class="hl std">= ui,</span> <span class="hl kwc">server</span> <span class="hl std">= server)</span>
+</pre></div>
+<div class="error"><pre class="knitr r">## Error in appshot.shiny.appobj(structure(list(httpHandler = function (req) : appshot of Shiny app objects is not yet supported.
+</pre></div>
+</div></div>
+
+  <p>The R session information (including the OS info, R version and all
+    packages used):</p>
+
+<div class="chunk" id="session-info"><div class="rcode"><div class="source"><pre class="knitr r">    <span class="hl kwd">sessionInfo</span><span class="hl std">()</span>
+</pre></div>
+<div class="output"><pre class="knitr r">## R version 3.4.2 (2017-09-28)
+## Platform: x86_64-w64-mingw32/x64 (64-bit)
+## Running under: Windows 7 x64 (build 7601) Service Pack 1
+## 
+## Matrix products: default
+## 
+## locale:
+## [1] LC_COLLATE=English_United States.1252  LC_CTYPE=English_United States.1252   
+## [3] LC_MONETARY=English_United States.1252 LC_NUMERIC=C                          
+## [5] LC_TIME=English_United States.1252    
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## other attached packages:
+## [1] knitr_1.20           shinydashboard_0.7.0 shiny_1.2.0         
+## 
+## loaded via a namespace (and not attached):
+##  [1] Rcpp_1.0.0      rstudioapi_0.7  magrittr_1.5    xtable_1.8-2    R6_2.2.2       
+##  [6] rlang_0.3.1     stringr_1.3.1   highr_0.7       tools_3.4.2     webshot_0.5.0  
+## [11] xfun_0.4        tinytex_0.6     htmltools_0.3.6 yaml_2.2.0      digest_0.6.18  
+## [16] rprojroot_1.3-2 crayon_1.3.4    later_0.7.5     promises_1.0.1  evaluate_0.11  
+## [21] mime_0.5        rmarkdown_1.10  stringi_1.2.4   compiler_3.4.2  backports_1.1.2
+## [26] jsonlite_1.6    httpuv_1.4.5
+</pre></div>
+<div class="source"><pre class="knitr r">    <span class="hl kwd">Sys.time</span><span class="hl std">()</span>
+</pre></div>
+<div class="output"><pre class="knitr r">## [1] &quot;2019-02-26 16:29:34 EST&quot;
+</pre></div>
+</div></div>
+
+
+</body>
+</html>

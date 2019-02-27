@@ -1,0 +1,420 @@
+\documentclass{article}\usepackage[]{graphicx}\usepackage[]{color}
+%% maxwidth is the original width if it is less than linewidth
+%% otherwise use linewidth (to make sure the graphics do not exceed the margin)
+\makeatletter
+\def\maxwidth{ %
+  \ifdim\Gin@nat@width>\linewidth
+    \linewidth
+  \else
+    \Gin@nat@width
+  \fi
+}
+\makeatother
+
+\definecolor{fgcolor}{rgb}{0.345, 0.345, 0.345}
+\newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1}}%
+\newcommand{\hlstr}[1]{\textcolor[rgb]{0.192,0.494,0.8}{#1}}%
+\newcommand{\hlcom}[1]{\textcolor[rgb]{0.678,0.584,0.686}{\textit{#1}}}%
+\newcommand{\hlopt}[1]{\textcolor[rgb]{0,0,0}{#1}}%
+\newcommand{\hlstd}[1]{\textcolor[rgb]{0.345,0.345,0.345}{#1}}%
+\newcommand{\hlkwa}[1]{\textcolor[rgb]{0.161,0.373,0.58}{\textbf{#1}}}%
+\newcommand{\hlkwb}[1]{\textcolor[rgb]{0.69,0.353,0.396}{#1}}%
+\newcommand{\hlkwc}[1]{\textcolor[rgb]{0.333,0.667,0.333}{#1}}%
+\newcommand{\hlkwd}[1]{\textcolor[rgb]{0.737,0.353,0.396}{\textbf{#1}}}%
+\let\hlipl\hlkwb
+
+\usepackage{framed}
+\makeatletter
+\newenvironment{kframe}{%
+ \def\at@end@of@kframe{}%
+ \ifinner\ifhmode%
+  \def\at@end@of@kframe{\end{minipage}}%
+  \begin{minipage}{\columnwidth}%
+ \fi\fi%
+ \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
+ \colorbox{shadecolor}{##1}\hskip-\fboxsep
+     % There is no \\@totalrightmargin, so:
+     \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
+ \MakeFramed {\advance\hsize-\width
+   \@totalleftmargin\z@ \linewidth\hsize
+   \@setminipage}}%
+ {\par\unskip\endMakeFramed%
+ \at@end@of@kframe}
+\makeatother
+
+\definecolor{shadecolor}{rgb}{.97, .97, .97}
+\definecolor{messagecolor}{rgb}{0, 0, 0}
+\definecolor{warningcolor}{rgb}{1, 0, 1}
+\definecolor{errorcolor}{rgb}{1, 0, 0}
+\newenvironment{knitrout}{}{} % an empty environment to be redefined in TeX
+
+\usepackage{alltt}
+\usepackage[sc]{mathpazo}
+\renewcommand{\sfdefault}{lmss}
+\renewcommand{\ttdefault}{lmtt}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\geometry{verbose,tmargin=2.5cm,bmargin=2.5cm,lmargin=2.5cm,rmargin=2.5cm}
+\setcounter{secnumdepth}{2}
+\setcounter{tocdepth}{2}
+\usepackage[unicode=true,pdfusetitle,
+ bookmarks=true,bookmarksnumbered=true,bookmarksopen=true,bookmarksopenlevel=2,
+ breaklinks=false,pdfborder={0 0 1},backref=false,colorlinks=false]
+ {hyperref}
+\hypersetup{
+ pdfstartview={XYZ null null 1}}
+
+\makeatletter
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
+\renewcommand{\textfraction}{0.05}
+\renewcommand{\topfraction}{0.8}
+\renewcommand{\bottomfraction}{0.8}
+\renewcommand{\floatpagefraction}{0.75}
+
+\makeatother
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\begin{document}
+
+
+
+
+
+
+
+
+The results below are generated from an R script.
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# Already inside server}
+
+\hlkwd{library}\hlstd{(shinydashboard)}
+\hlkwd{library}\hlstd{(shiny)}
+\hlstd{output}\hlopt{$}\hlstd{pageStub} \hlkwb{<-} \hlkwd{renderUI}\hlstd{(}\hlkwd{fluidPage}\hlstd{(}
+   \hlcom{# headerPanel("Hello Shiny"),}
+   \hlcom{# Application title}
+   \hlkwd{titlePanel}\hlstd{(}\hlstr{"How to hold reactivity using Submit button?"}\hlstd{),}
+   \hlkwc{skin}\hlstd{=}\hlstr{"red"}\hlstd{,}
+
+   \hlcom{# Sidebar with a slider input for number of bins}
+         \hlkwd{sidebarLayout}\hlstd{(}
+           \hlkwd{sidebarPanel}\hlstd{(}
+             \hlkwd{fileInput}\hlstd{(}\hlstr{"file"}\hlstd{,} \hlstr{"Upload the file"}\hlstd{),}
+             \hlkwd{h5}\hlstd{(}\hlstr{"Max file size to upload is 5 MB"}\hlstd{),}
+             \hlkwd{radioButtons}\hlstd{(}\hlstr{"sep"}\hlstd{,} \hlstr{"Seperator"}\hlstd{,} \hlkwc{choices}\hlstd{=}\hlkwd{c}\hlstd{(}\hlkwc{Comma}\hlstd{=}\hlstr{','}\hlstd{,}
+                                                      \hlkwc{Period}\hlstd{=}\hlstr{'.'}\hlstd{,}
+                                                      \hlkwc{Tilde}\hlstd{=}\hlstr{'~'}\hlstd{,}
+                                                      \hlkwc{minus}\hlstd{=}\hlstr{'-'}\hlstd{)),}
+             \hlkwd{checkboxInput}\hlstd{(}\hlstr{"header"}\hlstd{,} \hlstr{"Header?"}\hlstd{),}
+             \hlkwd{menuItem}\hlstd{(}\hlstr{"Dashboard"}\hlstd{,} \hlkwc{tabName}\hlstd{=}\hlstr{"dashboard"}\hlstd{,} \hlkwc{icon}\hlstd{=}\hlkwd{icon}\hlstd{(}\hlstr{"dashboard"}\hlstd{)),}
+              \hlkwd{menuSubItem}\hlstd{(}\hlstr{"Dashboard Finance"}\hlstd{,} \hlkwc{tabName}\hlstd{=}\hlstr{"Finance"}\hlstd{),}
+              \hlkwd{menuSubItem}\hlstd{(}\hlstr{"Dashboard Sales"}\hlstd{,} \hlkwc{tabName}\hlstd{=}\hlstr{"Sales"}\hlstd{),}
+             \hlkwd{menuItem}\hlstd{(}\hlstr{"Detailed Analysis"}\hlstd{,} \hlkwc{badgeLabel}\hlstd{=}\hlstr{"New"}\hlstd{,}\hlkwc{badgeColor} \hlstd{=} \hlstr{"green"}\hlstd{),}
+             \hlkwd{menuItem}\hlstd{(}\hlstr{"Raw Data"}\hlstd{),}
+             \hlkwd{textInput}\hlstd{(}\hlstr{"projcode"}\hlstd{,} \hlstr{"Enter the project code"}\hlstd{),}
+             \hlkwd{textInput}\hlstd{(}\hlstr{"projName"}\hlstd{,} \hlstr{"Enter the project Name"}\hlstd{),}
+             \hlkwd{textInput}\hlstd{(}\hlstr{"tech"}\hlstd{,}\hlstr{"Technology you are using?"}\hlstd{),}
+             \hlkwd{radioButtons}\hlstd{(}\hlstr{"loc"}\hlstd{,} \hlstr{"What is your location"}\hlstd{,} \hlkwc{choices}\hlstd{=}\hlkwd{c}\hlstd{(}\hlstr{"Off-site"}\hlstd{,} \hlstr{"On-site"}\hlstd{)),}
+             \hlkwd{sliderInput}\hlstd{(}\hlstr{"ndayspent"}\hlstd{,} \hlstr{"No. of days spent"}\hlstd{,} \hlnum{1}\hlstd{,}\hlnum{100}\hlstd{,}\hlkwc{value}\hlstd{=}\hlkwd{c}\hlstd{(}\hlnum{10}\hlstd{,}\hlnum{20}\hlstd{),} \hlkwc{step}\hlstd{=}\hlnum{5}\hlstd{),}
+             \hlkwd{selectInput}\hlstd{(}\hlstr{"dept"}\hlstd{,} \hlstr{"What is your department"}\hlstd{,} \hlkwc{choices}\hlstd{=}\hlkwd{c}\hlstd{(}\hlstr{"Marketing"}\hlstd{,} \hlstr{"Finance"}\hlstd{,} \hlstr{"Sales"}\hlstd{,} \hlstr{"IT"}\hlstd{),} \hlkwc{multiple}\hlstd{=T),}
+             \hlkwd{selectInput}\hlstd{(}\hlstr{"ngear"}\hlstd{,} \hlstr{"Select the gear number"}\hlstd{,} \hlkwd{c}\hlstd{(}\hlstr{"Cylinders"}\hlstd{=}\hlstr{"cyl"}\hlstd{,}
+                                                              \hlstr{"Transmission"}\hlstd{=}\hlstr{"am"}\hlstd{,}
+                                                              \hlstr{"Gears"}\hlstd{=}\hlstr{"gear"}\hlstd{)),}
+             \hlkwd{actionButton}\hlstd{(}\hlstr{"do"}\hlstd{,} \hlstr{"Click Me"}\hlstd{)}
+             \hlstd{),}
+
+           \hlcom{# Show a plot of the generated distribution}
+           \hlkwd{mainPanel}\hlstd{(}
+             \hlkwd{tableOutput}\hlstd{(}\hlstr{"input_file"}\hlstd{),}
+             \hlkwd{tabsetPanel}\hlstd{(}\hlkwc{type}\hlstd{=}\hlstr{"tab"}\hlstd{,}
+                         \hlcom{# tabPanel("Help",tags$img(src="rstudio.png"),}
+                         \hlcom{#          tags$video(src="testVideo.mp4", width="500px",}
+                         \hlcom{#                     height="350px",}
+                         \hlcom{#                     type="video/mp4",}
+                         \hlcom{#                     controls="controls"),}
+                         \hlcom{#          HTML('<iframe width="560" height="315" src="https://www.youtube.com/embed/Ka2pWqXS1WA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>')),}
+                      \hlkwd{tabPanel}\hlstd{(}\hlstr{"Data"}\hlstd{,} \hlkwd{tableOutput}\hlstd{(}\hlstr{"mtcars"}\hlstd{),} \hlkwd{downloadButton}\hlstd{(}\hlstr{"downloadData"}\hlstd{,} \hlstr{"Download Data"}\hlstd{)),}
+                      \hlkwd{tabPanel}\hlstd{(}\hlstr{"Summary"}\hlstd{,} \hlkwd{verbatimTextOutput}\hlstd{(}\hlstr{"summ"}\hlstd{)),}
+                      \hlkwd{tabPanel}\hlstd{(}\hlstr{"Plot"}\hlstd{,} \hlkwd{plotOutput}\hlstd{(}\hlstr{"plot"}\hlstd{),} \hlkwd{downloadButton}\hlstd{(}\hlstr{"downloadPlot"}\hlstd{,} \hlstr{"Download Plot"}\hlstd{))),}
+             \hlkwd{textOutput}\hlstd{(}\hlstr{"project_code"}\hlstd{),}
+             \hlkwd{textOutput}\hlstd{(}\hlstr{"project_name"}\hlstd{),}
+             \hlkwd{textOutput}\hlstd{(}\hlstr{"technology_used"}\hlstd{),}
+             \hlkwd{textOutput}\hlstd{(}\hlstr{"location"}\hlstd{),}
+             \hlkwd{textOutput}\hlstd{(}\hlstr{"no_of_days_spent"}\hlstd{),}
+             \hlkwd{textOutput}\hlstd{(}\hlstr{"department"}\hlstd{),}
+             \hlkwd{fluidRow}\hlstd{(}\hlkwd{column}\hlstd{(}\hlkwc{width}\hlstd{=}\hlnum{5}\hlstd{,}
+                      \hlkwd{infoBox}\hlstd{(}\hlstr{"Sales"}\hlstd{,} \hlnum{1}\hlstd{,} \hlnum{100000}\hlstd{,}\hlkwc{icon}\hlstd{=}\hlkwd{icon}\hlstd{(}\hlstr{"thumbs-up"}\hlstd{)),}
+                      \hlkwd{infoBox}\hlstd{(}\hlstr{"Conversion %"}\hlstd{,} \hlkwd{paste0}\hlstd{(}\hlstr{'20%'}\hlstd{),} \hlkwc{icon}\hlstd{=}\hlkwd{icon}\hlstd{(}\hlstr{"warning"}\hlstd{)),}
+                      \hlkwd{infoBox}\hlstd{(}\hlstr{"approvedSales"}\hlstd{))),}
+             \hlkwd{fluidRow}\hlstd{(}\hlkwd{valueBox}\hlstd{(}\hlnum{15}\hlopt{*}\hlnum{500}\hlstd{,}\hlstr{"Budget for 15 Days"}\hlstd{,} \hlkwc{icon}\hlstd{=}\hlkwd{icon}\hlstd{(}\hlstr{"hourglass-3"}\hlstd{),} \hlkwc{color}\hlstd{=}\hlstr{"yellow"}\hlstd{),}
+                      \hlkwd{valueBox}\hlstd{(}\hlnum{15}\hlopt{*}\hlnum{200}\hlstd{,}\hlstr{"Item Requested by Employees"}\hlstd{,} \hlkwc{icon}\hlstd{=}\hlkwd{icon}\hlstd{(}\hlstr{"fire"}\hlstd{),} \hlkwc{color}\hlstd{=}\hlstr{"red"}\hlstd{)),}
+
+             \hlkwd{dropdownMenu}\hlstd{(}\hlkwc{type}\hlstd{=}\hlstr{"message"}\hlstd{,} \hlkwd{messageItem}\hlstd{(}\hlkwc{from}\hlstd{=}\hlstr{"Finance Update"}\hlstd{,} \hlkwc{message}\hlstd{=}\hlstr{"We are on Threshold"}\hlstd{),}
+                          \hlkwd{messageItem}\hlstd{(}\hlkwc{from}\hlstd{=}\hlstr{"Sales Update"}\hlstd{,} \hlkwc{message}\hlstd{=}\hlstr{"We are on Threshold"}\hlstd{,} \hlkwc{icon}\hlstd{=}\hlkwd{icon}\hlstd{(}\hlstr{"bar-chart"}\hlstd{)),}
+                          \hlkwd{messageItem}\hlstd{(}\hlkwc{from}\hlstd{=}\hlstr{"Sales Update"}\hlstd{,} \hlkwc{message}\hlstd{=}\hlstr{"Sales meeting at 6 PM on Monday"}\hlstd{,} \hlkwc{icon}\hlstd{=}\hlkwd{icon}\hlstd{(}\hlstr{"handshake-o"}\hlstd{),} \hlkwc{time}\hlstd{=}\hlstr{"03-25-2017"}\hlstd{)),}
+             \hlkwd{dropdownMenu}\hlstd{(}\hlkwc{type}\hlstd{=}\hlstr{"notifications"}\hlstd{,}
+                          \hlkwd{notificationItem}\hlstd{(}
+                            \hlkwc{text}\hlstd{=}\hlstr{"2 new tabs added to the dashboard"}\hlstd{,}
+                            \hlkwc{icon}\hlstd{=}\hlkwd{icon}\hlstd{(}\hlstr{"dashboard"}\hlstd{),}
+                            \hlkwc{status}\hlstd{=}\hlstr{"success"}
+                          \hlstd{),}
+                          \hlkwd{notificationItem}\hlstd{(}
+                            \hlkwc{text}\hlstd{=}\hlstr{"Server is currently running at 95% load"}\hlstd{,}
+                            \hlkwc{status}\hlstd{=}\hlstr{"warning"}
+                          \hlstd{)),}
+             \hlkwd{dropdownMenu}\hlstd{(}\hlkwc{type}\hlstd{=}\hlstr{"tasks"}\hlstd{,}
+                          \hlkwd{taskItem}\hlstd{(}
+                          \hlkwc{value}\hlstd{=}\hlnum{80}\hlstd{,}
+                          \hlkwc{color}\hlstd{=}\hlstr{"aqua"}\hlstd{,}
+                          \hlstr{"Shiny Dashboard Education"}\hlstd{),}
+                          \hlkwd{taskItem}\hlstd{(}
+                            \hlkwc{value}\hlstd{=}\hlnum{55}\hlstd{,}
+                            \hlkwc{color}\hlstd{=}\hlstr{"red"}\hlstd{,}
+                            \hlstr{"Overall R Education"}\hlstd{),}
+                          \hlkwd{taskItem}\hlstd{(}
+                            \hlkwc{value}\hlstd{=}\hlnum{40}\hlstd{,}
+                            \hlkwc{color}\hlstd{=}\hlstr{"red"}\hlstd{,}
+                            \hlstr{"Data Science Education"}\hlstd{)}
+                          \hlstd{),}
+
+             \hlkwd{fluidRow}\hlstd{(}\hlkwd{tabBox}\hlstd{(}\hlkwc{width}\hlstd{=}\hlnum{30}\hlstd{,}
+
+               \hlkwd{tabPanel}\hlstd{(}\hlkwc{title}\hlstd{=}\hlstr{"Main Panel Output"}\hlstd{,}
+
+                        \hlkwc{status}\hlstd{=}\hlstr{"primary"}\hlstd{,}
+                        \hlkwd{tabItems}\hlstd{(}
+                                    \hlkwd{tabItem}\hlstd{(}\hlkwc{tabName}\hlstd{=}\hlstr{"dashboard"}\hlstd{,}
+
+                                               \hlkwd{fluidRow}\hlstd{(}\hlkwd{box}\hlstd{(}\hlkwc{title}\hlstd{=}\hlstr{"Histogram of Faithful"}\hlstd{,}
+                                                            \hlkwc{status}\hlstd{=}\hlstr{"primary"}\hlstd{,}
+                                                            \hlkwc{solidHeader}\hlstd{=T,}
+                                                            \hlkwd{plotOutput}\hlstd{(}\hlstr{"distPlot"}\hlstd{))),}
+                                                        \hlkwd{box}\hlstd{(}\hlkwc{title}\hlstd{=}\hlstr{"Controls for Dashboard"}\hlstd{,}
+                                                            \hlkwc{status}\hlstd{=}\hlstr{"warning"}\hlstd{,}
+                                                            \hlkwc{solidHeader}\hlstd{=T,}
+                                                            \hlkwd{sliderInput}\hlstd{(}\hlstr{"bins"}\hlstd{,}
+                                                                        \hlstr{"Number of bins:"}\hlstd{,}
+                                                                        \hlkwc{min} \hlstd{=} \hlnum{1}\hlstd{,}
+                                                                        \hlkwc{max} \hlstd{=} \hlnum{50}\hlstd{,}
+                                                                        \hlkwc{value} \hlstd{=} \hlnum{30}\hlstd{),}
+                                                            \hlkwd{textInput}\hlstd{(}\hlstr{"text_input"}\hlstd{,}\hlstr{"Search Opportunities"}\hlstd{,} \hlkwc{value}\hlstd{=}\hlstr{"123456"}\hlstd{)}
+                                              \hlstd{)),}
+                                      \hlkwd{tabItem}\hlstd{(}\hlkwc{tabName}\hlstd{=}\hlstr{"Finance"}\hlstd{,} \hlkwd{h1}\hlstd{(}\hlstr{"Finance Dashboard"}\hlstd{)),}
+                                      \hlkwd{tabItem}\hlstd{(}\hlkwc{tabName}\hlstd{=}\hlstr{"Sales"}\hlstd{,} \hlkwd{h1}\hlstd{(}\hlstr{"Sales Dashboard"}\hlstd{)))),}
+
+               \hlkwd{tabPanel}\hlstd{(}\hlkwc{title}\hlstd{=}\hlstr{"Video: Creating"}\hlstd{,}
+                        \hlkwc{status}\hlstd{=}\hlstr{"primary"}\hlstd{,}
+                        \hlkwd{HTML}\hlstd{(}\hlstr{'<iframe width="500" height="400" src="https://www.youtube.com/embed/Gyrfsrd4zK0" frameborder="0" allowfullscreen></iframe>'}\hlstd{)),}
+
+               \hlkwd{tabPanel}\hlstd{(}\hlkwc{title}\hlstd{=}\hlstr{"Code"}\hlstd{,}
+                        \hlkwc{status}\hlstd{=}\hlstr{"primary"}\hlstd{,}
+                        \hlkwd{HTML}\hlstd{(}\hlstr{""}\hlstd{),}
+                        \hlkwd{includeHTML}\hlstd{(}\hlstr{"app.html"}\hlstd{)))}
+             \hlstd{))}
+
+         \hlstd{)}
+\hlstd{)}
+\hlcom{# Show a plot of the generated distribution}
+\hlstd{)}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in output\$pageStub <- renderUI(fluidPage(titlePanel("{}How to hold reactivity using Submit button?"{}), : object 'output' not found}}\begin{alltt}
+\hlstd{output}\hlopt{$}\hlstd{distPlot} \hlkwb{<-} \hlkwd{renderPlot}\hlstd{(\{}
+   \hlcom{# generate bins based on input$bins from ui.R}
+   \hlstd{x}    \hlkwb{<-} \hlstd{faithful[,} \hlnum{2}\hlstd{]}
+   \hlstd{bins} \hlkwb{<-} \hlkwd{seq}\hlstd{(}\hlkwd{min}\hlstd{(x),} \hlkwd{max}\hlstd{(x),} \hlkwc{length.out} \hlstd{= input}\hlopt{$}\hlstd{bins} \hlopt{+} \hlnum{1}\hlstd{)}
+
+   \hlcom{# draw the histogram with the specified number of bins}
+   \hlkwd{hist}\hlstd{(x,} \hlkwc{breaks} \hlstd{= bins,} \hlkwc{col} \hlstd{=} \hlstr{'darkgray'}\hlstd{,} \hlkwc{border} \hlstd{=} \hlstr{'white'}\hlstd{)}
+\hlstd{\})}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in output\$distPlot <- renderPlot(\{: object 'output' not found}}\begin{alltt}
+\hlstd{output}\hlopt{$}\hlstd{approvedSales}\hlkwb{<-}\hlkwd{renderInfoBox}\hlstd{(\{}
+  \hlkwd{infoBox}\hlstd{(}\hlstr{"Approval Sales"}\hlstd{,} \hlstr{"10,000,000"}\hlstd{,} \hlkwc{icon}\hlstd{=}\hlkwd{icon}\hlstd{(}\hlstr{"bar-chart-o"}\hlstd{))}
+\hlstd{\})}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in output\$approvedSales <- renderInfoBox(\{: object 'output' not found}}\begin{alltt}
+\hlstd{output}\hlopt{$}\hlstd{itemRequested} \hlkwb{<-}\hlkwd{renderValueBox}\hlstd{(\{}
+  \hlkwd{valueBox}\hlstd{(}\hlnum{300}\hlstd{,}
+           \hlkwc{subtitle}\hlstd{=}\hlstr{"Item Requested by Employees"}\hlstd{,}
+           \hlkwc{icon}\hlstd{=}\hlkwd{icon}\hlstd{(}\hlstr{"fire"}\hlstd{),}
+           \hlkwc{color}\hlstd{=}\hlstr{"yellow"}\hlstd{)}
+\hlstd{\})}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in output\$itemRequested <- renderValueBox(\{: object 'output' not found}}\begin{alltt}
+\hlstd{output}\hlopt{$}\hlstd{project_code}\hlkwb{<-}\hlstd{\{(}
+  \hlkwd{renderText}\hlstd{(input}\hlopt{$}\hlstd{projcode)}
+\hlstd{)\}}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in output\$project\_code <- \{: object 'output' not found}}\begin{alltt}
+\hlstd{output}\hlopt{$}\hlstd{project_name}\hlkwb{<-}\hlstd{\{(}
+  \hlkwd{renderText}\hlstd{(input}\hlopt{$}\hlstd{projName)}
+\hlstd{)\}}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in output\$project\_name <- \{: object 'output' not found}}\begin{alltt}
+\hlstd{output}\hlopt{$}\hlstd{technology_used}\hlkwb{<-}\hlstd{\{(}
+  \hlkwd{renderText}\hlstd{(input}\hlopt{$}\hlstd{tech)}
+\hlstd{)\}}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in output\$technology\_used <- \{: object 'output' not found}}\begin{alltt}
+\hlstd{output}\hlopt{$}\hlstd{location}\hlkwb{<-}\hlstd{\{(}
+  \hlkwd{renderText}\hlstd{(input}\hlopt{$}\hlstd{loc)}
+\hlstd{)\}}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in output\$location <- \{: object 'output' not found}}\begin{alltt}
+\hlstd{output}\hlopt{$}\hlstd{no_of_days_spent}\hlkwb{<-}\hlstd{\{(}
+  \hlkwd{renderText}\hlstd{(input}\hlopt{$}\hlstd{ndayspent)}
+\hlstd{)\}}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in output\$no\_of\_days\_spent <- \{: object 'output' not found}}\begin{alltt}
+\hlstd{output}\hlopt{$}\hlstd{department}\hlkwb{<-}\hlstd{\{(}
+  \hlkwd{renderText}\hlstd{(input}\hlopt{$}\hlstd{dept)}
+\hlstd{)\}}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in output\$department <- \{: object 'output' not found}}\begin{alltt}
+\hlcom{##### Reactive Functions }
+
+\hlstd{mtreact}\hlkwb{<-}\hlkwd{reactive}\hlstd{(\{}
+  \hlstd{mtcars[,}\hlkwd{c}\hlstd{(}\hlstr{"mpg"}\hlstd{, input}\hlopt{$}\hlstd{ngear)]}
+\hlstd{\})}
+\hlstd{output}\hlopt{$}\hlstd{mtcars}\hlkwb{<-}\hlkwd{renderTable}\hlstd{(\{}
+  \hlkwd{mtreact}\hlstd{()}
+  \hlstd{\})}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in output\$mtcars <- renderTable(\{: object 'output' not found}}\begin{alltt}
+\hlstd{output}\hlopt{$}\hlstd{summ}\hlkwb{<-}\hlkwd{renderPrint}\hlstd{(\{}
+  \hlkwd{summary}\hlstd{(}\hlkwd{mtreact}\hlstd{())}
+\hlstd{\})}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in output\$summ <- renderPrint(\{: object 'output' not found}}\begin{alltt}
+\hlstd{output}\hlopt{$}\hlstd{plot}\hlkwb{<-}\hlkwd{renderPlot}\hlstd{(\{}
+  \hlkwd{with}\hlstd{(}\hlkwd{mtreact}\hlstd{(),} \hlkwd{boxplot}\hlstd{(mpg}\hlopt{~}\hlkwd{mtreact}\hlstd{()[,}\hlnum{2}\hlstd{]))}
+\hlstd{\})}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in output\$plot <- renderPlot(\{: object 'output' not found}}\begin{alltt}
+\hlcom{##### Add video and images}
+
+
+\hlcom{#### 23. Download Data and Plot}
+
+\hlstd{output}\hlopt{$}\hlstd{downloadData}\hlkwb{<-}\hlkwd{downloadHandler}\hlstd{(}
+  \hlkwc{filename}\hlstd{=}\hlkwa{function}\hlstd{()\{}
+    \hlkwd{paste}\hlstd{(}\hlstr{"mtcars"}\hlstd{,}\hlstr{"csv"}\hlstd{,} \hlkwc{sep}\hlstd{=}\hlstr{"."}\hlstd{)}
+  \hlstd{\},}
+  \hlkwc{content}\hlstd{=}\hlkwa{function}\hlstd{(}\hlkwc{file}\hlstd{)\{}
+    \hlkwd{write.csv}\hlstd{(}\hlkwd{mtreact}\hlstd{(), file)}
+  \hlstd{\}}
+\hlstd{)}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in output\$downloadData <- downloadHandler(filename = function() \{: object 'output' not found}}\begin{alltt}
+\hlstd{output}\hlopt{$}\hlstd{downloadPlot}\hlkwb{<-}\hlkwd{downloadHandler}\hlstd{(}
+  \hlkwc{filename}\hlstd{=}\hlkwa{function}\hlstd{()\{}
+    \hlkwd{paste}\hlstd{(}\hlstr{"mtcars-plot"}\hlstd{,} \hlstr{"png"}\hlstd{,} \hlkwc{sep}\hlstd{=}\hlstr{"."}\hlstd{)}
+  \hlstd{\},}
+  \hlkwc{content}\hlstd{=}\hlkwa{function}\hlstd{(}\hlkwc{file}\hlstd{)\{}
+    \hlkwd{png}\hlstd{(file)}
+    \hlkwd{with}\hlstd{(}\hlkwd{mtreact}\hlstd{(),} \hlkwd{boxplot}\hlstd{(mpg}\hlopt{~}\hlkwd{mtreact}\hlstd{()[,}\hlnum{2}\hlstd{]))}
+    \hlkwd{dev.off}\hlstd{()}
+
+  \hlstd{\})}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in output\$downloadPlot <- downloadHandler(filename = function() \{: object 'output' not found}}\begin{alltt}
+\hlcom{#### 24. Upload File}
+
+\hlstd{output}\hlopt{$}\hlstd{input_file}\hlkwb{<-}\hlkwd{renderTable}\hlstd{(\{}
+  \hlstd{file_to_read}\hlkwb{=}\hlstd{input}\hlopt{$}\hlstd{file}
+  \hlkwa{if}\hlstd{(}\hlkwd{is.null}\hlstd{(file_to_read))\{}
+    \hlkwd{return}\hlstd{()}
+  \hlstd{\}}
+  \hlkwd{read.table}\hlstd{(file_to_read}\hlopt{$}\hlstd{datapath,} \hlkwc{sep}\hlstd{=input}\hlopt{$}\hlstd{sep,} \hlkwc{header}\hlstd{=input}\hlopt{$}\hlstd{header)}
+\hlstd{\})}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in output\$input\_file <- renderTable(\{: object 'output' not found}}\begin{alltt}
+\hlcom{#### 25. Hold reactivity using submit button}
+
+
+\hlcom{#####}
+\hlcom{# library(knitr) }
+\hlcom{# stitch("file_name.R")}
+\hlcom{# }
+\hlcom{# stitch(script="file_name.R", system.file("misc", "knitr-template.Rhtml", package="knitr"))}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+The R session information (including the OS info, R version and all
+packages used):
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{sessionInfo}\hlstd{()}
+\end{alltt}
+\begin{verbatim}
+## R version 3.4.2 (2017-09-28)
+## Platform: x86_64-w64-mingw32/x64 (64-bit)
+## Running under: Windows 7 x64 (build 7601) Service Pack 1
+## 
+## Matrix products: default
+## 
+## locale:
+## [1] LC_COLLATE=English_United States.1252  LC_CTYPE=English_United States.1252   
+## [3] LC_MONETARY=English_United States.1252 LC_NUMERIC=C                          
+## [5] LC_TIME=English_United States.1252    
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## other attached packages:
+## [1] knitr_1.20           shinydashboard_0.7.0 shiny_1.2.0         
+## 
+## loaded via a namespace (and not attached):
+##  [1] Rcpp_1.0.0      rprojroot_1.3-2 digest_0.6.18   crayon_1.3.4    later_0.7.5    
+##  [6] mime_0.5        R6_2.2.2        backports_1.1.2 xtable_1.8-2    jsonlite_1.6   
+## [11] magrittr_1.5    evaluate_0.11   highr_0.7       stringi_1.2.4   rlang_0.3.1    
+## [16] rstudioapi_0.7  promises_1.0.1  rmarkdown_1.10  tools_3.4.2     stringr_1.3.1  
+## [21] httpuv_1.4.5    yaml_2.2.0      compiler_3.4.2  htmltools_0.3.6
+\end{verbatim}
+\begin{alltt}
+\hlkwd{Sys.time}\hlstd{()}
+\end{alltt}
+\begin{verbatim}
+## [1] "2019-02-26 16:28:06 EST"
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+
+\end{document}

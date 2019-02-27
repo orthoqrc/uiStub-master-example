@@ -1,0 +1,385 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+.knitr .inline {
+  background-color: #f7f7f7;
+  border:solid 1px #B0B0B0;
+}
+.error {
+	font-weight: bold;
+	color: #FF0000;
+}
+.warning {
+	font-weight: bold;
+}
+.message {
+	font-style: italic;
+}
+.source, .output, .warning, .error, .message {
+	padding: 0 1em;
+  border:solid 1px #F7F7F7;
+}
+.source {
+  background-color: #f5f5f5;
+}
+.rimage .left {
+  text-align: left;
+}
+.rimage .right {
+  text-align: right;
+}
+.rimage .center {
+  text-align: center;
+}
+.hl.num {
+  color: #AF0F91;
+}
+.hl.str {
+  color: #317ECC;
+}
+.hl.com {
+  color: #AD95AF;
+  font-style: italic;
+}
+.hl.opt {
+  color: #000000;
+}
+.hl.std {
+  color: #585858;
+}
+.hl.kwa {
+  color: #295F94;
+  font-weight: bold;
+}
+.hl.kwb {
+  color: #B05A65;
+}
+.hl.kwc {
+  color: #55aa55;
+}
+.hl.kwd {
+  color: #BC5A65;
+  font-weight: bold;
+}
+</style>
+  <script src="https://yihui.name/media/js/center-images.js"></script>
+  <title></title>
+</head>
+<body>
+
+  <p>This report is automatically generated with the R
+    package <a href="https://yihui.name/knitr/"><strong>knitr</strong></a>
+    (version <code class="knitr inline">1.20</code>)
+    .</p>
+
+<div class="chunk" id="auto-report"><div class="rcode"><div class="source"><pre class="knitr r"><span class="hl com"># Already inside server</span>
+
+<span class="hl kwd">library</span><span class="hl std">(shinydashboard)</span>
+<span class="hl kwd">library</span><span class="hl std">(shiny)</span>
+<span class="hl std">output</span><span class="hl opt">$</span><span class="hl std">pageStub</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">renderUI</span><span class="hl std">(</span><span class="hl kwd">fluidPage</span><span class="hl std">(</span>
+   <span class="hl com"># headerPanel(&quot;Hello Shiny&quot;),</span>
+   <span class="hl com"># Application title</span>
+   <span class="hl kwd">titlePanel</span><span class="hl std">(</span><span class="hl str">&quot;How to hold reactivity using Submit button?&quot;</span><span class="hl std">),</span>
+   <span class="hl kwc">skin</span><span class="hl std">=</span><span class="hl str">&quot;red&quot;</span><span class="hl std">,</span>
+
+   <span class="hl com"># Sidebar with a slider input for number of bins</span>
+         <span class="hl kwd">sidebarLayout</span><span class="hl std">(</span>
+           <span class="hl kwd">sidebarPanel</span><span class="hl std">(</span>
+             <span class="hl kwd">fileInput</span><span class="hl std">(</span><span class="hl str">&quot;file&quot;</span><span class="hl std">,</span> <span class="hl str">&quot;Upload the file&quot;</span><span class="hl std">),</span>
+             <span class="hl kwd">h5</span><span class="hl std">(</span><span class="hl str">&quot;Max file size to upload is 5 MB&quot;</span><span class="hl std">),</span>
+             <span class="hl kwd">radioButtons</span><span class="hl std">(</span><span class="hl str">&quot;sep&quot;</span><span class="hl std">,</span> <span class="hl str">&quot;Seperator&quot;</span><span class="hl std">,</span> <span class="hl kwc">choices</span><span class="hl std">=</span><span class="hl kwd">c</span><span class="hl std">(</span><span class="hl kwc">Comma</span><span class="hl std">=</span><span class="hl str">','</span><span class="hl std">,</span>
+                                                      <span class="hl kwc">Period</span><span class="hl std">=</span><span class="hl str">'.'</span><span class="hl std">,</span>
+                                                      <span class="hl kwc">Tilde</span><span class="hl std">=</span><span class="hl str">'~'</span><span class="hl std">,</span>
+                                                      <span class="hl kwc">minus</span><span class="hl std">=</span><span class="hl str">'-'</span><span class="hl std">)),</span>
+             <span class="hl kwd">checkboxInput</span><span class="hl std">(</span><span class="hl str">&quot;header&quot;</span><span class="hl std">,</span> <span class="hl str">&quot;Header?&quot;</span><span class="hl std">),</span>
+             <span class="hl kwd">menuItem</span><span class="hl std">(</span><span class="hl str">&quot;Dashboard&quot;</span><span class="hl std">,</span> <span class="hl kwc">tabName</span><span class="hl std">=</span><span class="hl str">&quot;dashboard&quot;</span><span class="hl std">,</span> <span class="hl kwc">icon</span><span class="hl std">=</span><span class="hl kwd">icon</span><span class="hl std">(</span><span class="hl str">&quot;dashboard&quot;</span><span class="hl std">)),</span>
+              <span class="hl kwd">menuSubItem</span><span class="hl std">(</span><span class="hl str">&quot;Dashboard Finance&quot;</span><span class="hl std">,</span> <span class="hl kwc">tabName</span><span class="hl std">=</span><span class="hl str">&quot;Finance&quot;</span><span class="hl std">),</span>
+              <span class="hl kwd">menuSubItem</span><span class="hl std">(</span><span class="hl str">&quot;Dashboard Sales&quot;</span><span class="hl std">,</span> <span class="hl kwc">tabName</span><span class="hl std">=</span><span class="hl str">&quot;Sales&quot;</span><span class="hl std">),</span>
+             <span class="hl kwd">menuItem</span><span class="hl std">(</span><span class="hl str">&quot;Detailed Analysis&quot;</span><span class="hl std">,</span> <span class="hl kwc">badgeLabel</span><span class="hl std">=</span><span class="hl str">&quot;New&quot;</span><span class="hl std">,</span><span class="hl kwc">badgeColor</span> <span class="hl std">=</span> <span class="hl str">&quot;green&quot;</span><span class="hl std">),</span>
+             <span class="hl kwd">menuItem</span><span class="hl std">(</span><span class="hl str">&quot;Raw Data&quot;</span><span class="hl std">),</span>
+             <span class="hl kwd">textInput</span><span class="hl std">(</span><span class="hl str">&quot;projcode&quot;</span><span class="hl std">,</span> <span class="hl str">&quot;Enter the project code&quot;</span><span class="hl std">),</span>
+             <span class="hl kwd">textInput</span><span class="hl std">(</span><span class="hl str">&quot;projName&quot;</span><span class="hl std">,</span> <span class="hl str">&quot;Enter the project Name&quot;</span><span class="hl std">),</span>
+             <span class="hl kwd">textInput</span><span class="hl std">(</span><span class="hl str">&quot;tech&quot;</span><span class="hl std">,</span><span class="hl str">&quot;Technology you are using?&quot;</span><span class="hl std">),</span>
+             <span class="hl kwd">radioButtons</span><span class="hl std">(</span><span class="hl str">&quot;loc&quot;</span><span class="hl std">,</span> <span class="hl str">&quot;What is your location&quot;</span><span class="hl std">,</span> <span class="hl kwc">choices</span><span class="hl std">=</span><span class="hl kwd">c</span><span class="hl std">(</span><span class="hl str">&quot;Off-site&quot;</span><span class="hl std">,</span> <span class="hl str">&quot;On-site&quot;</span><span class="hl std">)),</span>
+             <span class="hl kwd">sliderInput</span><span class="hl std">(</span><span class="hl str">&quot;ndayspent&quot;</span><span class="hl std">,</span> <span class="hl str">&quot;No. of days spent&quot;</span><span class="hl std">,</span> <span class="hl num">1</span><span class="hl std">,</span><span class="hl num">100</span><span class="hl std">,</span><span class="hl kwc">value</span><span class="hl std">=</span><span class="hl kwd">c</span><span class="hl std">(</span><span class="hl num">10</span><span class="hl std">,</span><span class="hl num">20</span><span class="hl std">),</span> <span class="hl kwc">step</span><span class="hl std">=</span><span class="hl num">5</span><span class="hl std">),</span>
+             <span class="hl kwd">selectInput</span><span class="hl std">(</span><span class="hl str">&quot;dept&quot;</span><span class="hl std">,</span> <span class="hl str">&quot;What is your department&quot;</span><span class="hl std">,</span> <span class="hl kwc">choices</span><span class="hl std">=</span><span class="hl kwd">c</span><span class="hl std">(</span><span class="hl str">&quot;Marketing&quot;</span><span class="hl std">,</span> <span class="hl str">&quot;Finance&quot;</span><span class="hl std">,</span> <span class="hl str">&quot;Sales&quot;</span><span class="hl std">,</span> <span class="hl str">&quot;IT&quot;</span><span class="hl std">),</span> <span class="hl kwc">multiple</span><span class="hl std">=T),</span>
+             <span class="hl kwd">selectInput</span><span class="hl std">(</span><span class="hl str">&quot;ngear&quot;</span><span class="hl std">,</span> <span class="hl str">&quot;Select the gear number&quot;</span><span class="hl std">,</span> <span class="hl kwd">c</span><span class="hl std">(</span><span class="hl str">&quot;Cylinders&quot;</span><span class="hl std">=</span><span class="hl str">&quot;cyl&quot;</span><span class="hl std">,</span>
+                                                              <span class="hl str">&quot;Transmission&quot;</span><span class="hl std">=</span><span class="hl str">&quot;am&quot;</span><span class="hl std">,</span>
+                                                              <span class="hl str">&quot;Gears&quot;</span><span class="hl std">=</span><span class="hl str">&quot;gear&quot;</span><span class="hl std">)),</span>
+             <span class="hl kwd">actionButton</span><span class="hl std">(</span><span class="hl str">&quot;do&quot;</span><span class="hl std">,</span> <span class="hl str">&quot;Click Me&quot;</span><span class="hl std">)</span>
+             <span class="hl std">),</span>
+
+           <span class="hl com"># Show a plot of the generated distribution</span>
+           <span class="hl kwd">mainPanel</span><span class="hl std">(</span>
+             <span class="hl kwd">tableOutput</span><span class="hl std">(</span><span class="hl str">&quot;input_file&quot;</span><span class="hl std">),</span>
+             <span class="hl kwd">tabsetPanel</span><span class="hl std">(</span><span class="hl kwc">type</span><span class="hl std">=</span><span class="hl str">&quot;tab&quot;</span><span class="hl std">,</span>
+                         <span class="hl com"># tabPanel(&quot;Help&quot;,tags$img(src=&quot;rstudio.png&quot;),</span>
+                         <span class="hl com">#          tags$video(src=&quot;testVideo.mp4&quot;, width=&quot;500px&quot;,</span>
+                         <span class="hl com">#                     height=&quot;350px&quot;,</span>
+                         <span class="hl com">#                     type=&quot;video/mp4&quot;,</span>
+                         <span class="hl com">#                     controls=&quot;controls&quot;),</span>
+                         <span class="hl com">#          HTML('&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/Ka2pWqXS1WA&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture&quot; allowfullscreen&gt;&lt;/iframe&gt;')),</span>
+                      <span class="hl kwd">tabPanel</span><span class="hl std">(</span><span class="hl str">&quot;Data&quot;</span><span class="hl std">,</span> <span class="hl kwd">tableOutput</span><span class="hl std">(</span><span class="hl str">&quot;mtcars&quot;</span><span class="hl std">),</span> <span class="hl kwd">downloadButton</span><span class="hl std">(</span><span class="hl str">&quot;downloadData&quot;</span><span class="hl std">,</span> <span class="hl str">&quot;Download Data&quot;</span><span class="hl std">)),</span>
+                      <span class="hl kwd">tabPanel</span><span class="hl std">(</span><span class="hl str">&quot;Summary&quot;</span><span class="hl std">,</span> <span class="hl kwd">verbatimTextOutput</span><span class="hl std">(</span><span class="hl str">&quot;summ&quot;</span><span class="hl std">)),</span>
+                      <span class="hl kwd">tabPanel</span><span class="hl std">(</span><span class="hl str">&quot;Plot&quot;</span><span class="hl std">,</span> <span class="hl kwd">plotOutput</span><span class="hl std">(</span><span class="hl str">&quot;plot&quot;</span><span class="hl std">),</span> <span class="hl kwd">downloadButton</span><span class="hl std">(</span><span class="hl str">&quot;downloadPlot&quot;</span><span class="hl std">,</span> <span class="hl str">&quot;Download Plot&quot;</span><span class="hl std">))),</span>
+             <span class="hl kwd">textOutput</span><span class="hl std">(</span><span class="hl str">&quot;project_code&quot;</span><span class="hl std">),</span>
+             <span class="hl kwd">textOutput</span><span class="hl std">(</span><span class="hl str">&quot;project_name&quot;</span><span class="hl std">),</span>
+             <span class="hl kwd">textOutput</span><span class="hl std">(</span><span class="hl str">&quot;technology_used&quot;</span><span class="hl std">),</span>
+             <span class="hl kwd">textOutput</span><span class="hl std">(</span><span class="hl str">&quot;location&quot;</span><span class="hl std">),</span>
+             <span class="hl kwd">textOutput</span><span class="hl std">(</span><span class="hl str">&quot;no_of_days_spent&quot;</span><span class="hl std">),</span>
+             <span class="hl kwd">textOutput</span><span class="hl std">(</span><span class="hl str">&quot;department&quot;</span><span class="hl std">),</span>
+             <span class="hl kwd">fluidRow</span><span class="hl std">(</span><span class="hl kwd">column</span><span class="hl std">(</span><span class="hl kwc">width</span><span class="hl std">=</span><span class="hl num">5</span><span class="hl std">,</span>
+                      <span class="hl kwd">infoBox</span><span class="hl std">(</span><span class="hl str">&quot;Sales&quot;</span><span class="hl std">,</span> <span class="hl num">1</span><span class="hl std">,</span> <span class="hl num">100000</span><span class="hl std">,</span><span class="hl kwc">icon</span><span class="hl std">=</span><span class="hl kwd">icon</span><span class="hl std">(</span><span class="hl str">&quot;thumbs-up&quot;</span><span class="hl std">)),</span>
+                      <span class="hl kwd">infoBox</span><span class="hl std">(</span><span class="hl str">&quot;Conversion %&quot;</span><span class="hl std">,</span> <span class="hl kwd">paste0</span><span class="hl std">(</span><span class="hl str">'20%'</span><span class="hl std">),</span> <span class="hl kwc">icon</span><span class="hl std">=</span><span class="hl kwd">icon</span><span class="hl std">(</span><span class="hl str">&quot;warning&quot;</span><span class="hl std">)),</span>
+                      <span class="hl kwd">infoBox</span><span class="hl std">(</span><span class="hl str">&quot;approvedSales&quot;</span><span class="hl std">))),</span>
+             <span class="hl kwd">fluidRow</span><span class="hl std">(</span><span class="hl kwd">valueBox</span><span class="hl std">(</span><span class="hl num">15</span><span class="hl opt">*</span><span class="hl num">500</span><span class="hl std">,</span><span class="hl str">&quot;Budget for 15 Days&quot;</span><span class="hl std">,</span> <span class="hl kwc">icon</span><span class="hl std">=</span><span class="hl kwd">icon</span><span class="hl std">(</span><span class="hl str">&quot;hourglass-3&quot;</span><span class="hl std">),</span> <span class="hl kwc">color</span><span class="hl std">=</span><span class="hl str">&quot;yellow&quot;</span><span class="hl std">),</span>
+                      <span class="hl kwd">valueBox</span><span class="hl std">(</span><span class="hl num">15</span><span class="hl opt">*</span><span class="hl num">200</span><span class="hl std">,</span><span class="hl str">&quot;Item Requested by Employees&quot;</span><span class="hl std">,</span> <span class="hl kwc">icon</span><span class="hl std">=</span><span class="hl kwd">icon</span><span class="hl std">(</span><span class="hl str">&quot;fire&quot;</span><span class="hl std">),</span> <span class="hl kwc">color</span><span class="hl std">=</span><span class="hl str">&quot;red&quot;</span><span class="hl std">)),</span>
+
+             <span class="hl kwd">dropdownMenu</span><span class="hl std">(</span><span class="hl kwc">type</span><span class="hl std">=</span><span class="hl str">&quot;message&quot;</span><span class="hl std">,</span> <span class="hl kwd">messageItem</span><span class="hl std">(</span><span class="hl kwc">from</span><span class="hl std">=</span><span class="hl str">&quot;Finance Update&quot;</span><span class="hl std">,</span> <span class="hl kwc">message</span><span class="hl std">=</span><span class="hl str">&quot;We are on Threshold&quot;</span><span class="hl std">),</span>
+                          <span class="hl kwd">messageItem</span><span class="hl std">(</span><span class="hl kwc">from</span><span class="hl std">=</span><span class="hl str">&quot;Sales Update&quot;</span><span class="hl std">,</span> <span class="hl kwc">message</span><span class="hl std">=</span><span class="hl str">&quot;We are on Threshold&quot;</span><span class="hl std">,</span> <span class="hl kwc">icon</span><span class="hl std">=</span><span class="hl kwd">icon</span><span class="hl std">(</span><span class="hl str">&quot;bar-chart&quot;</span><span class="hl std">)),</span>
+                          <span class="hl kwd">messageItem</span><span class="hl std">(</span><span class="hl kwc">from</span><span class="hl std">=</span><span class="hl str">&quot;Sales Update&quot;</span><span class="hl std">,</span> <span class="hl kwc">message</span><span class="hl std">=</span><span class="hl str">&quot;Sales meeting at 6 PM on Monday&quot;</span><span class="hl std">,</span> <span class="hl kwc">icon</span><span class="hl std">=</span><span class="hl kwd">icon</span><span class="hl std">(</span><span class="hl str">&quot;handshake-o&quot;</span><span class="hl std">),</span> <span class="hl kwc">time</span><span class="hl std">=</span><span class="hl str">&quot;03-25-2017&quot;</span><span class="hl std">)),</span>
+             <span class="hl kwd">dropdownMenu</span><span class="hl std">(</span><span class="hl kwc">type</span><span class="hl std">=</span><span class="hl str">&quot;notifications&quot;</span><span class="hl std">,</span>
+                          <span class="hl kwd">notificationItem</span><span class="hl std">(</span>
+                            <span class="hl kwc">text</span><span class="hl std">=</span><span class="hl str">&quot;2 new tabs added to the dashboard&quot;</span><span class="hl std">,</span>
+                            <span class="hl kwc">icon</span><span class="hl std">=</span><span class="hl kwd">icon</span><span class="hl std">(</span><span class="hl str">&quot;dashboard&quot;</span><span class="hl std">),</span>
+                            <span class="hl kwc">status</span><span class="hl std">=</span><span class="hl str">&quot;success&quot;</span>
+                          <span class="hl std">),</span>
+                          <span class="hl kwd">notificationItem</span><span class="hl std">(</span>
+                            <span class="hl kwc">text</span><span class="hl std">=</span><span class="hl str">&quot;Server is currently running at 95% load&quot;</span><span class="hl std">,</span>
+                            <span class="hl kwc">status</span><span class="hl std">=</span><span class="hl str">&quot;warning&quot;</span>
+                          <span class="hl std">)),</span>
+             <span class="hl kwd">dropdownMenu</span><span class="hl std">(</span><span class="hl kwc">type</span><span class="hl std">=</span><span class="hl str">&quot;tasks&quot;</span><span class="hl std">,</span>
+                          <span class="hl kwd">taskItem</span><span class="hl std">(</span>
+                          <span class="hl kwc">value</span><span class="hl std">=</span><span class="hl num">80</span><span class="hl std">,</span>
+                          <span class="hl kwc">color</span><span class="hl std">=</span><span class="hl str">&quot;aqua&quot;</span><span class="hl std">,</span>
+                          <span class="hl str">&quot;Shiny Dashboard Education&quot;</span><span class="hl std">),</span>
+                          <span class="hl kwd">taskItem</span><span class="hl std">(</span>
+                            <span class="hl kwc">value</span><span class="hl std">=</span><span class="hl num">55</span><span class="hl std">,</span>
+                            <span class="hl kwc">color</span><span class="hl std">=</span><span class="hl str">&quot;red&quot;</span><span class="hl std">,</span>
+                            <span class="hl str">&quot;Overall R Education&quot;</span><span class="hl std">),</span>
+                          <span class="hl kwd">taskItem</span><span class="hl std">(</span>
+                            <span class="hl kwc">value</span><span class="hl std">=</span><span class="hl num">40</span><span class="hl std">,</span>
+                            <span class="hl kwc">color</span><span class="hl std">=</span><span class="hl str">&quot;red&quot;</span><span class="hl std">,</span>
+                            <span class="hl str">&quot;Data Science Education&quot;</span><span class="hl std">)</span>
+                          <span class="hl std">),</span>
+
+             <span class="hl kwd">fluidRow</span><span class="hl std">(</span><span class="hl kwd">tabBox</span><span class="hl std">(</span><span class="hl kwc">width</span><span class="hl std">=</span><span class="hl num">30</span><span class="hl std">,</span>
+
+               <span class="hl kwd">tabPanel</span><span class="hl std">(</span><span class="hl kwc">title</span><span class="hl std">=</span><span class="hl str">&quot;Main Panel Output&quot;</span><span class="hl std">,</span>
+
+                        <span class="hl kwc">status</span><span class="hl std">=</span><span class="hl str">&quot;primary&quot;</span><span class="hl std">,</span>
+                        <span class="hl kwd">tabItems</span><span class="hl std">(</span>
+                                    <span class="hl kwd">tabItem</span><span class="hl std">(</span><span class="hl kwc">tabName</span><span class="hl std">=</span><span class="hl str">&quot;dashboard&quot;</span><span class="hl std">,</span>
+
+                                               <span class="hl kwd">fluidRow</span><span class="hl std">(</span><span class="hl kwd">box</span><span class="hl std">(</span><span class="hl kwc">title</span><span class="hl std">=</span><span class="hl str">&quot;Histogram of Faithful&quot;</span><span class="hl std">,</span>
+                                                            <span class="hl kwc">status</span><span class="hl std">=</span><span class="hl str">&quot;primary&quot;</span><span class="hl std">,</span>
+                                                            <span class="hl kwc">solidHeader</span><span class="hl std">=T,</span>
+                                                            <span class="hl kwd">plotOutput</span><span class="hl std">(</span><span class="hl str">&quot;distPlot&quot;</span><span class="hl std">))),</span>
+                                                        <span class="hl kwd">box</span><span class="hl std">(</span><span class="hl kwc">title</span><span class="hl std">=</span><span class="hl str">&quot;Controls for Dashboard&quot;</span><span class="hl std">,</span>
+                                                            <span class="hl kwc">status</span><span class="hl std">=</span><span class="hl str">&quot;warning&quot;</span><span class="hl std">,</span>
+                                                            <span class="hl kwc">solidHeader</span><span class="hl std">=T,</span>
+                                                            <span class="hl kwd">sliderInput</span><span class="hl std">(</span><span class="hl str">&quot;bins&quot;</span><span class="hl std">,</span>
+                                                                        <span class="hl str">&quot;Number of bins:&quot;</span><span class="hl std">,</span>
+                                                                        <span class="hl kwc">min</span> <span class="hl std">=</span> <span class="hl num">1</span><span class="hl std">,</span>
+                                                                        <span class="hl kwc">max</span> <span class="hl std">=</span> <span class="hl num">50</span><span class="hl std">,</span>
+                                                                        <span class="hl kwc">value</span> <span class="hl std">=</span> <span class="hl num">30</span><span class="hl std">),</span>
+                                                            <span class="hl kwd">textInput</span><span class="hl std">(</span><span class="hl str">&quot;text_input&quot;</span><span class="hl std">,</span><span class="hl str">&quot;Search Opportunities&quot;</span><span class="hl std">,</span> <span class="hl kwc">value</span><span class="hl std">=</span><span class="hl str">&quot;123456&quot;</span><span class="hl std">)</span>
+                                              <span class="hl std">)),</span>
+                                      <span class="hl kwd">tabItem</span><span class="hl std">(</span><span class="hl kwc">tabName</span><span class="hl std">=</span><span class="hl str">&quot;Finance&quot;</span><span class="hl std">,</span> <span class="hl kwd">h1</span><span class="hl std">(</span><span class="hl str">&quot;Finance Dashboard&quot;</span><span class="hl std">)),</span>
+                                      <span class="hl kwd">tabItem</span><span class="hl std">(</span><span class="hl kwc">tabName</span><span class="hl std">=</span><span class="hl str">&quot;Sales&quot;</span><span class="hl std">,</span> <span class="hl kwd">h1</span><span class="hl std">(</span><span class="hl str">&quot;Sales Dashboard&quot;</span><span class="hl std">)))),</span>
+
+               <span class="hl kwd">tabPanel</span><span class="hl std">(</span><span class="hl kwc">title</span><span class="hl std">=</span><span class="hl str">&quot;Video: Creating&quot;</span><span class="hl std">,</span>
+                        <span class="hl kwc">status</span><span class="hl std">=</span><span class="hl str">&quot;primary&quot;</span><span class="hl std">,</span>
+                        <span class="hl kwd">HTML</span><span class="hl std">(</span><span class="hl str">'&lt;iframe width=&quot;500&quot; height=&quot;400&quot; src=&quot;https://www.youtube.com/embed/Gyrfsrd4zK0&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;'</span><span class="hl std">)),</span>
+
+               <span class="hl kwd">tabPanel</span><span class="hl std">(</span><span class="hl kwc">title</span><span class="hl std">=</span><span class="hl str">&quot;Code&quot;</span><span class="hl std">,</span>
+                        <span class="hl kwc">status</span><span class="hl std">=</span><span class="hl str">&quot;primary&quot;</span><span class="hl std">,</span>
+                        <span class="hl kwd">HTML</span><span class="hl std">(</span><span class="hl str">&quot;&quot;</span><span class="hl std">),</span>
+                        <span class="hl kwd">includeHTML</span><span class="hl std">(</span><span class="hl str">&quot;app.html&quot;</span><span class="hl std">)))</span>
+             <span class="hl std">))</span>
+
+         <span class="hl std">)</span>
+<span class="hl std">)</span>
+<span class="hl com"># Show a plot of the generated distribution</span>
+<span class="hl std">)</span>
+</pre></div>
+<div class="error"><pre class="knitr r">## Error in output$pageStub &lt;- renderUI(fluidPage(titlePanel(&quot;How to hold reactivity using Submit button?&quot;), : object 'output' not found
+</pre></div>
+<div class="source"><pre class="knitr r"><span class="hl std">output</span><span class="hl opt">$</span><span class="hl std">distPlot</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">renderPlot</span><span class="hl std">({</span>
+   <span class="hl com"># generate bins based on input$bins from ui.R</span>
+   <span class="hl std">x</span>    <span class="hl kwb">&lt;-</span> <span class="hl std">faithful[,</span> <span class="hl num">2</span><span class="hl std">]</span>
+   <span class="hl std">bins</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">seq</span><span class="hl std">(</span><span class="hl kwd">min</span><span class="hl std">(x),</span> <span class="hl kwd">max</span><span class="hl std">(x),</span> <span class="hl kwc">length.out</span> <span class="hl std">= input</span><span class="hl opt">$</span><span class="hl std">bins</span> <span class="hl opt">+</span> <span class="hl num">1</span><span class="hl std">)</span>
+
+   <span class="hl com"># draw the histogram with the specified number of bins</span>
+   <span class="hl kwd">hist</span><span class="hl std">(x,</span> <span class="hl kwc">breaks</span> <span class="hl std">= bins,</span> <span class="hl kwc">col</span> <span class="hl std">=</span> <span class="hl str">'darkgray'</span><span class="hl std">,</span> <span class="hl kwc">border</span> <span class="hl std">=</span> <span class="hl str">'white'</span><span class="hl std">)</span>
+<span class="hl std">})</span>
+</pre></div>
+<div class="error"><pre class="knitr r">## Error in output$distPlot &lt;- renderPlot({: object 'output' not found
+</pre></div>
+<div class="source"><pre class="knitr r"><span class="hl std">output</span><span class="hl opt">$</span><span class="hl std">approvedSales</span><span class="hl kwb">&lt;-</span><span class="hl kwd">renderInfoBox</span><span class="hl std">({</span>
+  <span class="hl kwd">infoBox</span><span class="hl std">(</span><span class="hl str">&quot;Approval Sales&quot;</span><span class="hl std">,</span> <span class="hl str">&quot;10,000,000&quot;</span><span class="hl std">,</span> <span class="hl kwc">icon</span><span class="hl std">=</span><span class="hl kwd">icon</span><span class="hl std">(</span><span class="hl str">&quot;bar-chart-o&quot;</span><span class="hl std">))</span>
+<span class="hl std">})</span>
+</pre></div>
+<div class="error"><pre class="knitr r">## Error in output$approvedSales &lt;- renderInfoBox({: object 'output' not found
+</pre></div>
+<div class="source"><pre class="knitr r"><span class="hl std">output</span><span class="hl opt">$</span><span class="hl std">itemRequested</span> <span class="hl kwb">&lt;-</span><span class="hl kwd">renderValueBox</span><span class="hl std">({</span>
+  <span class="hl kwd">valueBox</span><span class="hl std">(</span><span class="hl num">300</span><span class="hl std">,</span>
+           <span class="hl kwc">subtitle</span><span class="hl std">=</span><span class="hl str">&quot;Item Requested by Employees&quot;</span><span class="hl std">,</span>
+           <span class="hl kwc">icon</span><span class="hl std">=</span><span class="hl kwd">icon</span><span class="hl std">(</span><span class="hl str">&quot;fire&quot;</span><span class="hl std">),</span>
+           <span class="hl kwc">color</span><span class="hl std">=</span><span class="hl str">&quot;yellow&quot;</span><span class="hl std">)</span>
+<span class="hl std">})</span>
+</pre></div>
+<div class="error"><pre class="knitr r">## Error in output$itemRequested &lt;- renderValueBox({: object 'output' not found
+</pre></div>
+<div class="source"><pre class="knitr r"><span class="hl std">output</span><span class="hl opt">$</span><span class="hl std">project_code</span><span class="hl kwb">&lt;-</span><span class="hl std">{(</span>
+  <span class="hl kwd">renderText</span><span class="hl std">(input</span><span class="hl opt">$</span><span class="hl std">projcode)</span>
+<span class="hl std">)}</span>
+</pre></div>
+<div class="error"><pre class="knitr r">## Error in output$project_code &lt;- {: object 'output' not found
+</pre></div>
+<div class="source"><pre class="knitr r"><span class="hl std">output</span><span class="hl opt">$</span><span class="hl std">project_name</span><span class="hl kwb">&lt;-</span><span class="hl std">{(</span>
+  <span class="hl kwd">renderText</span><span class="hl std">(input</span><span class="hl opt">$</span><span class="hl std">projName)</span>
+<span class="hl std">)}</span>
+</pre></div>
+<div class="error"><pre class="knitr r">## Error in output$project_name &lt;- {: object 'output' not found
+</pre></div>
+<div class="source"><pre class="knitr r"><span class="hl std">output</span><span class="hl opt">$</span><span class="hl std">technology_used</span><span class="hl kwb">&lt;-</span><span class="hl std">{(</span>
+  <span class="hl kwd">renderText</span><span class="hl std">(input</span><span class="hl opt">$</span><span class="hl std">tech)</span>
+<span class="hl std">)}</span>
+</pre></div>
+<div class="error"><pre class="knitr r">## Error in output$technology_used &lt;- {: object 'output' not found
+</pre></div>
+<div class="source"><pre class="knitr r"><span class="hl std">output</span><span class="hl opt">$</span><span class="hl std">location</span><span class="hl kwb">&lt;-</span><span class="hl std">{(</span>
+  <span class="hl kwd">renderText</span><span class="hl std">(input</span><span class="hl opt">$</span><span class="hl std">loc)</span>
+<span class="hl std">)}</span>
+</pre></div>
+<div class="error"><pre class="knitr r">## Error in output$location &lt;- {: object 'output' not found
+</pre></div>
+<div class="source"><pre class="knitr r"><span class="hl std">output</span><span class="hl opt">$</span><span class="hl std">no_of_days_spent</span><span class="hl kwb">&lt;-</span><span class="hl std">{(</span>
+  <span class="hl kwd">renderText</span><span class="hl std">(input</span><span class="hl opt">$</span><span class="hl std">ndayspent)</span>
+<span class="hl std">)}</span>
+</pre></div>
+<div class="error"><pre class="knitr r">## Error in output$no_of_days_spent &lt;- {: object 'output' not found
+</pre></div>
+<div class="source"><pre class="knitr r"><span class="hl std">output</span><span class="hl opt">$</span><span class="hl std">department</span><span class="hl kwb">&lt;-</span><span class="hl std">{(</span>
+  <span class="hl kwd">renderText</span><span class="hl std">(input</span><span class="hl opt">$</span><span class="hl std">dept)</span>
+<span class="hl std">)}</span>
+</pre></div>
+<div class="error"><pre class="knitr r">## Error in output$department &lt;- {: object 'output' not found
+</pre></div>
+<div class="source"><pre class="knitr r"><span class="hl com">##### Reactive Functions </span>
+
+<span class="hl std">mtreact</span><span class="hl kwb">&lt;-</span><span class="hl kwd">reactive</span><span class="hl std">({</span>
+  <span class="hl std">mtcars[,</span><span class="hl kwd">c</span><span class="hl std">(</span><span class="hl str">&quot;mpg&quot;</span><span class="hl std">, input</span><span class="hl opt">$</span><span class="hl std">ngear)]</span>
+<span class="hl std">})</span>
+<span class="hl std">output</span><span class="hl opt">$</span><span class="hl std">mtcars</span><span class="hl kwb">&lt;-</span><span class="hl kwd">renderTable</span><span class="hl std">({</span>
+  <span class="hl kwd">mtreact</span><span class="hl std">()</span>
+  <span class="hl std">})</span>
+</pre></div>
+<div class="error"><pre class="knitr r">## Error in output$mtcars &lt;- renderTable({: object 'output' not found
+</pre></div>
+<div class="source"><pre class="knitr r"><span class="hl std">output</span><span class="hl opt">$</span><span class="hl std">summ</span><span class="hl kwb">&lt;-</span><span class="hl kwd">renderPrint</span><span class="hl std">({</span>
+  <span class="hl kwd">summary</span><span class="hl std">(</span><span class="hl kwd">mtreact</span><span class="hl std">())</span>
+<span class="hl std">})</span>
+</pre></div>
+<div class="error"><pre class="knitr r">## Error in output$summ &lt;- renderPrint({: object 'output' not found
+</pre></div>
+<div class="source"><pre class="knitr r"><span class="hl std">output</span><span class="hl opt">$</span><span class="hl std">plot</span><span class="hl kwb">&lt;-</span><span class="hl kwd">renderPlot</span><span class="hl std">({</span>
+  <span class="hl kwd">with</span><span class="hl std">(</span><span class="hl kwd">mtreact</span><span class="hl std">(),</span> <span class="hl kwd">boxplot</span><span class="hl std">(mpg</span><span class="hl opt">~</span><span class="hl kwd">mtreact</span><span class="hl std">()[,</span><span class="hl num">2</span><span class="hl std">]))</span>
+<span class="hl std">})</span>
+</pre></div>
+<div class="error"><pre class="knitr r">## Error in output$plot &lt;- renderPlot({: object 'output' not found
+</pre></div>
+<div class="source"><pre class="knitr r"><span class="hl com">##### Add video and images</span>
+
+
+<span class="hl com">#### 23. Download Data and Plot</span>
+
+<span class="hl std">output</span><span class="hl opt">$</span><span class="hl std">downloadData</span><span class="hl kwb">&lt;-</span><span class="hl kwd">downloadHandler</span><span class="hl std">(</span>
+  <span class="hl kwc">filename</span><span class="hl std">=</span><span class="hl kwa">function</span><span class="hl std">(){</span>
+    <span class="hl kwd">paste</span><span class="hl std">(</span><span class="hl str">&quot;mtcars&quot;</span><span class="hl std">,</span><span class="hl str">&quot;csv&quot;</span><span class="hl std">,</span> <span class="hl kwc">sep</span><span class="hl std">=</span><span class="hl str">&quot;.&quot;</span><span class="hl std">)</span>
+  <span class="hl std">},</span>
+  <span class="hl kwc">content</span><span class="hl std">=</span><span class="hl kwa">function</span><span class="hl std">(</span><span class="hl kwc">file</span><span class="hl std">){</span>
+    <span class="hl kwd">write.csv</span><span class="hl std">(</span><span class="hl kwd">mtreact</span><span class="hl std">(), file)</span>
+  <span class="hl std">}</span>
+<span class="hl std">)</span>
+</pre></div>
+<div class="error"><pre class="knitr r">## Error in output$downloadData &lt;- downloadHandler(filename = function() {: object 'output' not found
+</pre></div>
+<div class="source"><pre class="knitr r"><span class="hl std">output</span><span class="hl opt">$</span><span class="hl std">downloadPlot</span><span class="hl kwb">&lt;-</span><span class="hl kwd">downloadHandler</span><span class="hl std">(</span>
+  <span class="hl kwc">filename</span><span class="hl std">=</span><span class="hl kwa">function</span><span class="hl std">(){</span>
+    <span class="hl kwd">paste</span><span class="hl std">(</span><span class="hl str">&quot;mtcars-plot&quot;</span><span class="hl std">,</span> <span class="hl str">&quot;png&quot;</span><span class="hl std">,</span> <span class="hl kwc">sep</span><span class="hl std">=</span><span class="hl str">&quot;.&quot;</span><span class="hl std">)</span>
+  <span class="hl std">},</span>
+  <span class="hl kwc">content</span><span class="hl std">=</span><span class="hl kwa">function</span><span class="hl std">(</span><span class="hl kwc">file</span><span class="hl std">){</span>
+    <span class="hl kwd">png</span><span class="hl std">(file)</span>
+    <span class="hl kwd">with</span><span class="hl std">(</span><span class="hl kwd">mtreact</span><span class="hl std">(),</span> <span class="hl kwd">boxplot</span><span class="hl std">(mpg</span><span class="hl opt">~</span><span class="hl kwd">mtreact</span><span class="hl std">()[,</span><span class="hl num">2</span><span class="hl std">]))</span>
+    <span class="hl kwd">dev.off</span><span class="hl std">()</span>
+
+  <span class="hl std">})</span>
+</pre></div>
+<div class="error"><pre class="knitr r">## Error in output$downloadPlot &lt;- downloadHandler(filename = function() {: object 'output' not found
+</pre></div>
+<div class="source"><pre class="knitr r"><span class="hl com">#### 24. Upload File</span>
+
+<span class="hl std">output</span><span class="hl opt">$</span><span class="hl std">input_file</span><span class="hl kwb">&lt;-</span><span class="hl kwd">renderTable</span><span class="hl std">({</span>
+  <span class="hl std">file_to_read</span><span class="hl kwb">=</span><span class="hl std">input</span><span class="hl opt">$</span><span class="hl std">file</span>
+  <span class="hl kwa">if</span><span class="hl std">(</span><span class="hl kwd">is.null</span><span class="hl std">(file_to_read)){</span>
+    <span class="hl kwd">return</span><span class="hl std">()</span>
+  <span class="hl std">}</span>
+  <span class="hl kwd">read.table</span><span class="hl std">(file_to_read</span><span class="hl opt">$</span><span class="hl std">datapath,</span> <span class="hl kwc">sep</span><span class="hl std">=input</span><span class="hl opt">$</span><span class="hl std">sep,</span> <span class="hl kwc">header</span><span class="hl std">=input</span><span class="hl opt">$</span><span class="hl std">header)</span>
+<span class="hl std">})</span>
+</pre></div>
+<div class="error"><pre class="knitr r">## Error in output$input_file &lt;- renderTable({: object 'output' not found
+</pre></div>
+<div class="source"><pre class="knitr r"><span class="hl com">#### 25. Hold reactivity using submit button</span>
+
+
+<span class="hl com">#####</span>
+<span class="hl com"># library(knitr) </span>
+<span class="hl com"># stitch(&quot;file_name.R&quot;)</span>
+<span class="hl com"># </span>
+<span class="hl com"># stitch(script=&quot;file_name.R&quot;, system.file(&quot;misc&quot;, &quot;knitr-template.Rhtml&quot;, package=&quot;knitr&quot;))</span>
+</pre></div>
+</div></div>
+
+  <p>The R session information (including the OS info, R version and all
+    packages used):</p>
+
+<div class="chunk" id="session-info"><div class="rcode"><div class="source"><pre class="knitr r">    <span class="hl kwd">sessionInfo</span><span class="hl std">()</span>
+</pre></div>
+<div class="output"><pre class="knitr r">## R version 3.4.2 (2017-09-28)
+## Platform: x86_64-w64-mingw32/x64 (64-bit)
+## Running under: Windows 7 x64 (build 7601) Service Pack 1
+## 
+## Matrix products: default
+## 
+## locale:
+## [1] LC_COLLATE=English_United States.1252  LC_CTYPE=English_United States.1252   
+## [3] LC_MONETARY=English_United States.1252 LC_NUMERIC=C                          
+## [5] LC_TIME=English_United States.1252    
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## other attached packages:
+## [1] knitr_1.20           shinydashboard_0.7.0 shiny_1.2.0         
+## 
+## loaded via a namespace (and not attached):
+##  [1] Rcpp_1.0.0      rstudioapi_0.7  magrittr_1.5    xtable_1.8-2    R6_2.2.2       
+##  [6] rlang_0.3.1     stringr_1.3.1   highr_0.7       tools_3.4.2     xfun_0.4       
+## [11] tinytex_0.6     htmltools_0.3.6 yaml_2.2.0      digest_0.6.18   rprojroot_1.3-2
+## [16] crayon_1.3.4    later_0.7.5     promises_1.0.1  evaluate_0.11   mime_0.5       
+## [21] rmarkdown_1.10  stringi_1.2.4   compiler_3.4.2  backports_1.1.2 jsonlite_1.6   
+## [26] httpuv_1.4.5
+</pre></div>
+<div class="source"><pre class="knitr r">    <span class="hl kwd">Sys.time</span><span class="hl std">()</span>
+</pre></div>
+<div class="output"><pre class="knitr r">## [1] &quot;2019-02-26 16:28:54 EST&quot;
+</pre></div>
+</div></div>
+
+
+</body>
+</html>
